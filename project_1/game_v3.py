@@ -1,5 +1,7 @@
-"""Игра угадай число
+"""Игра: угадай число
 Компьютер сам загадывает и сам угадывает число
+Загаданное числов диапазоне от 0 до 100
+Угадывание числа происходит менее, чем за 20 попыток
 """
 
 import numpy as np
@@ -14,13 +16,24 @@ def random_predict(number: int = 1) -> int:
     Returns:
         int: Число попыток
     """
-    count = 0
+    count = 0 # счетчик
+    lower_num=0 
+    upper_num=101
 
     while True:
         count += 1
-        predict_number = np.random.randint(1, 101)  # предполагаемое число
+        predict_number = np.random.randint(lower_num, upper_num)  # предполагаемое число
+       
         if number == predict_number:
             break  # выход из цикла если угадали
+        else:
+            # программа уменьшает длину отрезка, из которого генерируется предполагаемое число, 
+            # сравнивая искомое значение с предполагаемым числом
+            if number<predict_number:
+                upper_num=predict_number
+            elif number>=predict_number:
+                lower_num=predict_number
+            
     return count
 
 
